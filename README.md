@@ -1,9 +1,11 @@
 # Collective
 Allocation is futile: Atypical trivial & non-trivial collection classes.
 
-A collection of custom Collection implementations that have been missing in Java 1.6's java.util.Collections.
-- optimized for low memory footprint and allocation avoidance.
-- 
+A set of custom collection classes that have been missing in Java 1.6's java.util.Collections.
+* optimized for low memory footprint and allocation avoidance.
+* collections based on algorithmic geometry
+* collections related to concurrency and multi-threading
+
 
 
 Release
