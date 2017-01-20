@@ -5,7 +5,7 @@ A set of custom collection classes that have been missing in Java 1.6's java.uti
 * optimized for low memory footprint and allocation avoidance.
 * collections based on algorithmic geometry
 * collections related to concurrency and multi-threading
-
+* ...
 
 
 Release
