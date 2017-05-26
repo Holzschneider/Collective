@@ -105,10 +105,10 @@ public class Sticky<T extends Serializable> implements Serializable {
 	public Sticky<T> set(T value) { this.value = value; return this; }
 	public T get() { return this.value; }
 	
-	public static<T extends Serializable> T value(Getter<T> v) { return new Sticky<T>(v).get(); }
+	public static<T extends Serializable> T property(Getter<T> v) { return new Sticky<T>(v).get(); }
 	public static<T extends Serializable> T value(T v) { return new Sticky<T>(v).get(); }
 	public static<T extends Serializable> T value(String identifier, T v) { return new Sticky<T>(identifier, v).get(); }
-	public static<T extends Serializable> T value(String identifier, Getter<T> v) { return new Sticky<T>(identifier, v).get(); }
+	public static<T extends Serializable> T property(String identifier, Getter<T> v) { return new Sticky<T>(identifier, v).get(); }
 	
 	static public String identifierForStackTrace() {
 		String identifier = "";

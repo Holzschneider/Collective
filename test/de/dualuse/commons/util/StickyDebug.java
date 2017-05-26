@@ -12,7 +12,7 @@ public class StickyDebug {
 		final JFrame f = new JFrame();
 		
 		f.setBounds(new Rectangle(100,100,400,400));
-		f.setBounds(Sticky.value(new Getter<Rectangle>() {
+		f.setBounds(Sticky.property(new Getter<Rectangle>() {
 			@Override
 			public Rectangle get() {
 				System.out.println("GET "+f.getBounds());
