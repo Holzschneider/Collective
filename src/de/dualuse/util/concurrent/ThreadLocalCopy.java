@@ -1,4 +1,4 @@
-package de.dualuse.commons.util.concurrent;
+package de.dualuse.util.concurrent;
 
 import java.lang.reflect.Method;
 

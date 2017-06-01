@@ -1,4 +1,4 @@
-package de.dualuse.commons.util.geometry;
+package de.dualuse.util.geometry;
 
 import java.io.Serializable;
 import java.util.Collection;

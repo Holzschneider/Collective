@@ -1,4 +1,4 @@
-package de.dualuse.commons.util.geometry;
+package de.dualuse.util.geometry;
 
 import java.util.Collection;
 import java.util.Map;
@@ -23,7 +23,7 @@ public class Quadrant<T> implements CartesianMap<T> {
 	}
 
 	@Override
-	public Set<java.util.Map.Entry<de.dualuse.commons.util.geometry.CartesianMap.Coordinate, T>> entrySet() {
+	public Set<java.util.Map.Entry<de.dualuse.util.geometry.CartesianMap.Coordinate, T>> entrySet() {
 		return null;
 	}
 
@@ -38,17 +38,17 @@ public class Quadrant<T> implements CartesianMap<T> {
 	}
 
 	@Override
-	public Set<de.dualuse.commons.util.geometry.CartesianMap.Coordinate> keySet() {
+	public Set<de.dualuse.util.geometry.CartesianMap.Coordinate> keySet() {
 		return null;
 	}
 
 	@Override
-	public T put(de.dualuse.commons.util.geometry.CartesianMap.Coordinate arg0, T arg1) {
+	public T put(de.dualuse.util.geometry.CartesianMap.Coordinate arg0, T arg1) {
 		return null;
 	}
 
 	@Override
-	public void putAll(Map<? extends de.dualuse.commons.util.geometry.CartesianMap.Coordinate, ? extends T> arg0) {
+	public void putAll(Map<? extends de.dualuse.util.geometry.CartesianMap.Coordinate, ? extends T> arg0) {
 		
 	}
 

@@ -4,7 +4,8 @@ import java.awt.Rectangle;
 
 import javax.swing.JFrame;
 
-import de.dualuse.commons.util.Sticky.Getter;
+import de.dualuse.util.Sticky;
+import de.dualuse.util.Sticky.Getter;
 
 public class StickyDebug {
 	public static void main(String[] args) {

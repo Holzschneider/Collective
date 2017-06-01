@@ -1,4 +1,4 @@
-package de.dualuse.commons.util;
+package de.dualuse.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.RandomAccess;
 
-import de.dualuse.commons.Algorithms;
+import de.dualuse.Algorithms;
 
 public class SortedArrayList<T> implements Collection<T>, RandomAccess {
 

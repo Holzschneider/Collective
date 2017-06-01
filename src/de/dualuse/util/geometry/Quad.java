@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package de.dualuse.commons.util.geometry;
+package de.dualuse.util.geometry;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;

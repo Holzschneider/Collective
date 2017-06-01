@@ -1,4 +1,4 @@
-package de.dualuse.commons.util;
+package de.dualuse.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;

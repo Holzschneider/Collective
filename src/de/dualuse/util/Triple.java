@@ -1,4 +1,4 @@
-package de.dualuse.commons.util;
+package de.dualuse.util;
 
 
 public class Triple<X,Y,Z> extends Pair<X,Y>{

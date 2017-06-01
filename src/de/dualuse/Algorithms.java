@@ -1,4 +1,4 @@
-package de.dualuse.commons;
+package de.dualuse;
 
 import java.nio.BufferUnderflowException;
 import java.util.Arrays;
