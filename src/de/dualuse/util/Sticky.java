@@ -4,12 +4,12 @@ import java.util.*;
 
 //XXX TODO make it work on Android!
 @SuppressWarnings("unchecked")
-public class Sticky<T extends Serializable> implements Serializable {
-	static public interface Getter<Q extends Serializable> {
+public class Sticky<T> implements Serializable {
+	static public interface Getter<Q> {
 		public Q get();
 	}
 
-	static private class Passthrough<R extends Serializable> implements Getter<R> {
+	static private class Passthrough<R> implements Getter<R> {
 		Sticky<R> reference;
 		
 		public Passthrough(Sticky<R> reference) {
@@ -30,8 +30,8 @@ public class Sticky<T extends Serializable> implements Serializable {
 
 	static String APP = new LinkedList<Class<?>>(Arrays.asList(new SecurityManager() { protected Class<?>[] getClassContext() { return super.getClassContext(); } }.getClassContext())).getLast().getName();
 	
-	static LinkedHashMap<String, List<Sticky<? extends Serializable>>> restored = new LinkedHashMap<String, List<Sticky<? extends Serializable>>>();
-	static final LinkedHashMap<String, List<Sticky<? extends Serializable>>> registered = new LinkedHashMap<String, List<Sticky<? extends Serializable>>>();
+	static LinkedHashMap<String, List<Sticky<?>>> restored = new LinkedHashMap<String, List<Sticky<?>>>();
+	static final LinkedHashMap<String, List<Sticky<?>>> registered = new LinkedHashMap<String, List<Sticky<?>>>();
 	
 	static final String COOL_FILE_NAME = APP+".sticky.blob";
 	public static final File persistentStore = new File(System.getProperty("java.io.tmpdir"),COOL_FILE_NAME);
@@ -58,7 +58,7 @@ public class Sticky<T extends Serializable> implements Serializable {
 			try {
 				ObjectInputStream oos = new ObjectInputStream(new FileInputStream(persistentStore));
 				
-				restored = (LinkedHashMap<String, List<Sticky<? extends Serializable>>>) oos.readObject();
+				restored = (LinkedHashMap<String, List<Sticky<?>>>) oos.readObject();
 				oos.close();
 			} catch (Exception ex) {
 				System.err.println("Error: couldn't read "+COOL_FILE_NAME+" from "+persistentStore+": "+ex);
@@ -73,9 +73,9 @@ public class Sticky<T extends Serializable> implements Serializable {
 	public Sticky(String identifier, Getter<T> ret) { this(identifier, ret.get(), ret);  }
 	public Sticky(String identifier, T defaultValue, Getter<T> ret) { this(identifier, defaultValue); this.ret = ret; }	
 	public Sticky(String identifier, T defaultValue) {
-		List<Sticky<? extends Serializable>> dupes = registered.get(identifier);
+		List<Sticky<?>> dupes = registered.get(identifier);
 		if (dupes == null)
-			dupes = new LinkedList<Sticky<? extends Serializable>>();
+			dupes = new LinkedList<Sticky<?>>();
 		
 		dupes.add(this);
 		registered.put(identifier,dupes);
@@ -89,7 +89,7 @@ public class Sticky<T extends Serializable> implements Serializable {
 		Class<T> type = (Class<T>)defaultValue.getClass();
 		value = defaultValue;
 		
-		List<Sticky<? extends Serializable>> sources = restored.get(identifier);
+		List<Sticky<?>> sources = restored.get(identifier);
 		if (sources!=null) 
 			value = type.cast(sources.get(registered.get(identifier).size()-1).value);
 		
