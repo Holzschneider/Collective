@@ -22,9 +22,14 @@ public class Sticky<T> implements Serializable {
 		}
 	}
 	
+	static private boolean resetAll = false; 
+	public static void resetAll() {
+		resetAll = true;
+	}
 	
-	
-	
+	public static void clear() {
+		resetAll();
+	}
 	
 	private static final long serialVersionUID = 1L;
 
@@ -33,13 +38,28 @@ public class Sticky<T> implements Serializable {
 	static LinkedHashMap<String, List<Sticky<?>>> restored = new LinkedHashMap<String, List<Sticky<?>>>();
 	static final LinkedHashMap<String, List<Sticky<?>>> registered = new LinkedHashMap<String, List<Sticky<?>>>();
 	
-	static final String COOL_FILE_NAME = APP+".sticky.blob";
-	public static final File persistentStore = new File(System.getProperty("java.io.tmpdir"),COOL_FILE_NAME);
+	static final String STORE_NAME = APP+".sticky.blob", LAUNCH_PREFIX  = System.currentTimeMillis()+"-";
+	public static final File originalStore = new File(System.getProperty("java.io.tmpdir"),STORE_NAME);
+	public static final File persistentStore = new File(System.getProperty("java.io.tmpdir"),LAUNCH_PREFIX+STORE_NAME); 
+	static {
+		if (originalStore.exists()) try {
+			InputStream in = new FileInputStream(originalStore);
+			OutputStream out = new FileOutputStream(persistentStore);
+			byte[] buffer = new byte[64*1024];
+			for (int bytesRead = in.read(buffer); bytesRead>=0; bytesRead = in.read(buffer))
+				out.write(buffer, 0, bytesRead);
+			out.close();
+			in.close();
+			originalStore.delete();
+		} catch (Exception ex) {
+			System.err.println("Failed to swap sticky storage: "+ex);
+		}
+	}
 	
 	static final Thread saver = new Thread("Sticky-Thread") {
 		public void run() {
 			try {
-				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(persistentStore));
+				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(originalStore));
 				
 				for (Collection<Sticky<?>> cs: registered.values())
 					for (Sticky<?> s: cs)
@@ -48,7 +68,7 @@ public class Sticky<T> implements Serializable {
 				oos.writeObject(registered);
 				oos.close();
 			} catch (Exception ex) {
-				System.err.println("Error: couldn't write "+COOL_FILE_NAME+" to "+persistentStore+": "+ex);
+				System.err.println("Error: couldn't write "+STORE_NAME+" to "+originalStore+": "+ex);
 			}
 		}
 	};
@@ -61,7 +81,7 @@ public class Sticky<T> implements Serializable {
 				restored = (LinkedHashMap<String, List<Sticky<?>>>) oos.readObject();
 				oos.close();
 			} catch (Exception ex) {
-				System.err.println("Error: couldn't read "+COOL_FILE_NAME+" from "+persistentStore+": "+ex);
+				System.err.println("Error: couldn't read "+STORE_NAME+" from "+persistentStore+": "+ex);
 			}
 			Runtime.getRuntime().addShutdownHook(saver); 
 	}
@@ -89,6 +109,9 @@ public class Sticky<T> implements Serializable {
 		Class<T> type = (Class<T>)defaultValue.getClass();
 		value = defaultValue;
 		
+		if (resetAll)
+			return defaultValue;
+
 		List<Sticky<?>> sources = restored.get(identifier);
 		if (sources!=null) 
 			value = type.cast(sources.get(registered.get(identifier).size()-1).value);
