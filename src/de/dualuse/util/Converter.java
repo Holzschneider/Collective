@@ -2,7 +2,8 @@ package de.dualuse.util;
 
 import java.util.Iterator;
 
-public abstract class Converter<Q,E> implements Iterator<Q> {
+public abstract class Converter<Q,E> implements Iterator<Q>//, Iterable<Q> 
+{
 	final Iterator<E> inner;
 	public Converter(Iterator<E> wrapped) { this.inner = wrapped; }
 	public Converter() { this.inner = null; }
@@ -19,6 +20,11 @@ public abstract class Converter<Q,E> implements Iterator<Q> {
 			public A convert(B b) {
 				return c.convert(b);
 			}
+			
+//			@Override
+//			public Iterator<A> iterator() {
+//				return null;
+//			}
 		};
 	}
 	
