@@ -32,8 +32,8 @@ public class Delaunay {
 			Vertex<T> v2 = (e = e.getNext()).getVertex();
 			Vertex<T> v3 = (e = e.getNext()).getVertex();
 
-//			T p1 = v1.getValue(), p2 = v2.getValue(), p3 = v3.getValue();
-//			if (p1!=null && p2!=null && p3!=null) 
+			T p1 = v1.getValue(), p2 = v2.getValue(), p3 = v3.getValue();
+			if (p1!=null && p2!=null && p3!=null) 
 			{ 
 				tm.meet( v1, v2, v3 );
 				triangleCounter++;
@@ -45,10 +45,12 @@ public class Delaunay {
 	
 			for (int i=0;i<3;i++)
 				if (!done.contains((e=e.getNext()).getInverse())) { 
-					todo.push(e.getInverse());
-					done.add(e.getInverse());
-					done.add(e.getInverse().getNext());
-					done.add(e.getInverse().getPrevious());
+		 			if (e.getInverse()!=null) { 
+						todo.push(e.getInverse());
+						done.add(e.getInverse());
+						done.add(e.getInverse().getNext());
+						done.add(e.getInverse().getPrevious());
+					}
 				}			
 		}
 		
