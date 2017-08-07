@@ -1,4 +1,4 @@
-package de.dualuse.commons.util;
+package de.dualuse.util;
 
 import java.awt.Rectangle;
 
